@@ -1,0 +1,341 @@
+:root {
+  --bg: #17382d;
+  --panel: #204638;
+  --cream: #f1f0df;
+  --green: #48da77;
+  --green-dark: #168e4a;
+  --yellow: #ffd54a;
+  --apple-red: #f03f4f;
+  --apple-dark: #bd1f34;
+  --cell-size: clamp(32px, 4.15vw, 58px);
+  --gap: 4px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: "Pretendard", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(255,255,255,.06), transparent 35%),
+    var(--bg);
+  color: var(--cream);
+}
+
+button {
+  font: inherit;
+}
+
+.app {
+  width: min(1440px, 100%);
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 28px 18px;
+}
+
+.screen {
+  min-height: calc(100vh - 56px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
+}
+
+.title-row h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 6vw, 5rem);
+  letter-spacing: -0.06em;
+  text-shadow: 4px 5px 0 rgba(0,0,0,.28);
+}
+
+.title-row h1 span {
+  white-space: nowrap;
+}
+
+.apple-logo {
+  font-size: clamp(4rem, 8vw, 7rem);
+  filter: drop-shadow(0 6px 0 rgba(0,0,0,.18));
+}
+
+.instructions {
+  margin: 28px 0;
+  text-align: center;
+  font-size: clamp(1rem, 2vw, 1.55rem);
+  line-height: 1.65;
+  font-weight: 700;
+}
+
+.instructions strong {
+  color: var(--yellow);
+}
+
+.time-picker {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.time-btn,
+.toolbar button {
+  border: 4px solid #151515;
+  background: #666970;
+  color: white;
+  padding: 12px 24px;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 4px rgba(255,255,255,.12);
+}
+
+.time-btn.selected {
+  background: #6acb35;
+  color: #102a14;
+  outline: 4px solid var(--cream);
+  outline-offset: 3px;
+}
+
+.primary-btn {
+  border: 5px solid #151515;
+  background: var(--green);
+  color: #092b17;
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
+  font-weight: 1000;
+  padding: 16px 58px;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 6px rgba(255,255,255,.18), 8px 8px 0 rgba(0,0,0,.3);
+}
+
+.primary-btn:active,
+.time-btn:active,
+.toolbar button:active {
+  transform: translate(2px, 2px);
+}
+
+#game-screen {
+  justify-content: flex-start;
+}
+
+.game-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+
+.game-header h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+}
+
+.game-header p {
+  margin: 6px 0 0;
+}
+
+.status {
+  display: flex;
+  gap: 10px;
+}
+
+.status-card {
+  min-width: 120px;
+  background: rgba(255,255,255,.1);
+  border: 2px solid rgba(255,255,255,.3);
+  border-radius: 12px;
+  padding: 8px 14px;
+  text-align: center;
+}
+
+.status-card span {
+  display: block;
+  font-size: .85rem;
+  opacity: .85;
+}
+
+.status-card strong {
+  display: block;
+  margin-top: 3px;
+  font-size: 1.8rem;
+}
+
+.toolbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.toolbar button {
+  border-width: 2px;
+  padding: 8px 14px;
+  border-radius: 7px;
+}
+
+#message {
+  min-height: 1.4em;
+  margin-left: 6px;
+  font-weight: 800;
+  color: var(--yellow);
+}
+
+#board-wrap {
+  position: relative;
+  max-width: 100%;
+  overflow: auto;
+  padding: 8px;
+  border-radius: 16px;
+  background: rgba(0,0,0,.2);
+  touch-action: none;
+  user-select: none;
+}
+
+#board {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(19, var(--cell-size));
+  grid-template-rows: repeat(10, var(--cell-size));
+  gap: var(--gap);
+  width: max-content;
+}
+
+.apple {
+  width: var(--cell-size);
+  height: var(--cell-size);
+  border: 0;
+  border-radius: 50% 50% 48% 48%;
+  background:
+    radial-gradient(circle at 38% 28%, rgba(255,255,255,.55) 0 8%, transparent 9%),
+    radial-gradient(circle at 50% 38%, #ff6975 0 28%, var(--apple-red) 29% 62%, var(--apple-dark) 63% 100%);
+  color: white;
+  font-size: clamp(1rem, 2.3vw, 1.7rem);
+  font-weight: 1000;
+  text-shadow: 0 2px 2px rgba(0,0,0,.45);
+  position: relative;
+  display: grid;
+  place-items: center;
+  cursor: crosshair;
+  transition: opacity .2s ease, transform .2s ease, filter .15s ease;
+}
+
+.apple::before {
+  content: "";
+  position: absolute;
+  width: 19%;
+  height: 27%;
+  top: -8%;
+  left: 53%;
+  border-radius: 70% 10% 70% 10%;
+  background: #89c83d;
+  transform: rotate(-22deg);
+  z-index: -1;
+}
+
+.apple.selected {
+  filter: brightness(1.35) drop-shadow(0 0 7px #fff77b);
+  transform: scale(.92);
+  outline: 3px solid var(--yellow);
+  outline-offset: -3px;
+}
+
+.apple.removed {
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0) rotate(25deg);
+}
+
+.apple.hint {
+  animation: hintPulse .6s ease 3;
+}
+
+@keyframes hintPulse {
+  50% {
+    filter: brightness(1.55) drop-shadow(0 0 10px #fff77b);
+    transform: scale(.86);
+  }
+}
+
+#selection-box {
+  position: absolute;
+  display: none;
+  border: 3px solid #fff46b;
+  background: rgba(255, 244, 107, .18);
+  box-shadow: 0 0 0 1px rgba(0,0,0,.35);
+  pointer-events: none;
+  z-index: 5;
+}
+
+.end-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 36px 48px;
+  border-radius: 20px;
+  background: rgba(255,255,255,.08);
+  box-shadow: 0 20px 60px rgba(0,0,0,.3);
+}
+
+.end-card h1 {
+  margin: 8px 0 0;
+  font-size: clamp(2.5rem, 6vw, 5rem);
+}
+
+.end-card p {
+  margin-bottom: 0;
+  font-size: 1.4rem;
+}
+
+#final-score {
+  font-size: clamp(4rem, 10vw, 8rem);
+  color: var(--yellow);
+  margin-bottom: 18px;
+}
+
+@media (max-width: 760px) {
+  .app {
+    padding: 14px 8px;
+  }
+
+  .screen {
+    min-height: calc(100vh - 28px);
+  }
+
+  .title-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .game-header {
+    align-items: flex-start;
+  }
+
+  .status-card {
+    min-width: 82px;
+    padding: 6px 8px;
+  }
+
+  .game-header p {
+    display: none;
+  }
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="합이 10이 되는 사과를 드래그해 없애는 웹 게임" />
+  <title>사과게임 - 합이 10 만들기</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <section id="start-screen" class="screen">
+      <div class="title-row">
+        <div class="apple-logo" aria-hidden="true">🍎</div>
+        <h1>사과게임 <span>(10 만들기)</span></h1>
+      </div>
+
+      <p class="instructions">
+        숫자가 적힌 사과를 마우스나 손가락으로 자유롭게 드래그하세요.<br />
+        선택한 사과 숫자의 합이 정확히 <strong>10</strong>이면 사과가 사라집니다.<br />
+        직사각형 안에 들어온 사과가 선택되며 사라진 사과 수가 점수입니다.
+      </p>
+
+      <div class="time-picker" aria-label="제한 시간 선택">
+        <button class="time-btn" data-seconds="90">90초</button>
+        <button class="time-btn selected" data-seconds="120">120초</button>
+        <button class="time-btn" data-seconds="180">180초</button>
+      </div>
+
+      <button id="start-btn" class="primary-btn">시작!</button>
+    </section>
+
+    <section id="game-screen" class="screen hidden">
+      <header class="game-header">
+        <div>
+          <h1>🍎 사과게임</h1>
+          <p>드래그한 사과들의 합을 10으로 만드세요.</p>
+        </div>
+        <div class="status">
+          <div class="status-card"><span>점수</span><strong id="score">0</strong></div>
+          <div class="status-card"><span>남은 시간</span><strong id="timer">120</strong></div>
+        </div>
+      </header>
+
+      <div class="toolbar">
+        <button id="restart-btn">다시 시작</button>
+        <button id="shuffle-btn">섞기</button>
+        <button id="hint-btn">힌트</button>
+        <span id="message" role="status" aria-live="polite"></span>
+      </div>
+
+      <div id="board-wrap">
+        <div id="board" aria-label="사과 게임판"></div>
+        <div id="selection-box" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <section id="end-screen" class="screen hidden">
+      <div class="end-card">
+        <div class="apple-logo" aria-hidden="true">🍎</div>
+        <h1>게임 종료!</h1>
+        <p>최종 점수</p>
+        <strong id="final-score">0</strong>
+        <button id="play-again-btn" class="primary-btn">다시 하기</button>
+      </div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
