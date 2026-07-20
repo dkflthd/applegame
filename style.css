@@ -279,11 +279,11 @@ button {
 #selection-box {
   position: absolute;
   display: none;
-  border: 3px solid #fff46b;
-  background: rgba(255, 244, 107, .18);
-  box-shadow: 0 0 0 1px rgba(0,0,0,.35);
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 999px;
   pointer-events: none;
-  z-index: 5;
+  z-index: 20;
 }
 
 .end-card {
